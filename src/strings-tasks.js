@@ -495,11 +495,18 @@ function extractEmails(str) {
  *
  */
 function encodeToRot13(str) {
-  const encodeWord = str;
+  let result = '';
   for (let i = 0; i < str.length; i += 1) {
-    encodeWord.charCodeAt(i).toString(10);
+    const refactorElem = str.charCodeAt(i);
+    if (refactorElem >= 65 && refactorElem <= 90) {
+      result += String.fromCharCode(((refactorElem - 65 + 13) % 26) + 65);
+    } else if (refactorElem >= 97 && refactorElem <= 122) {
+      result += String.fromCharCode(((refactorElem - 97 + 13) % 26) + 97);
+    } else {
+      result += str.charAt(i);
+    }
   }
-  return encodeWord;
+  return result;
 }
 
 /**
@@ -526,8 +533,62 @@ function encodeToRot13(str) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const cards = [
+    'A♣',
+    '2♣',
+    '3♣',
+    '4♣',
+    '5♣',
+    '6♣',
+    '7♣',
+    '8♣',
+    '9♣',
+    '10♣',
+    'J♣',
+    'Q♣',
+    'K♣',
+    'A♦',
+    '2♦',
+    '3♦',
+    '4♦',
+    '5♦',
+    '6♦',
+    '7♦',
+    '8♦',
+    '9♦',
+    '10♦',
+    'J♦',
+    'Q♦',
+    'K♦',
+    'A♥',
+    '2♥',
+    '3♥',
+    '4♥',
+    '5♥',
+    '6♥',
+    '7♥',
+    '8♥',
+    '9♥',
+    '10♥',
+    'J♥',
+    'Q♥',
+    'K♥',
+    'A♠',
+    '2♠',
+    '3♠',
+    '4♠',
+    '5♠',
+    '6♠',
+    '7♠',
+    '8♠',
+    '9♠',
+    '10♠',
+    'J♠',
+    'Q♠',
+    'K♠',
+  ];
+  return cards.indexOf(value);
 }
 
 module.exports = {
